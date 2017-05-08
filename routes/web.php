@@ -18,3 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'admin'], function () {
+
+    Route::get('/status', 'StatusController@index')->name('statusesIndex');
+
+    //    Route::get('/', function ()    {
+//        // Uses Auth Middleware
+//    });
+//
+//    Route::get('user/profile', function () {
+//        // Uses Auth Middleware
+//    });
+});
+
