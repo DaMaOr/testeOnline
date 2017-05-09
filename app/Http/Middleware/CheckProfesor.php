@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
-class CheckAdmin
+class CheckProfesor
 {
     /**
      * Handle an incoming request.
@@ -17,7 +16,7 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->roles == User::ADMIN){
+        if(Auth::check() && Auth::user()->roles == User::PROFESOR){
 
             return $next($request);
         }

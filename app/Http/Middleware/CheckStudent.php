@@ -6,7 +6,7 @@ use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdmin
+class CheckStudent
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->roles == User::ADMIN){
+        if(Auth::check() && Auth::user()->roles == User::STUDENT){
 
             return $next($request);
         }

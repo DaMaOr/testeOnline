@@ -23,12 +23,14 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/status', 'StatusController@index')->name('statusesIndex');
 
-    //    Route::get('/', function ()    {
-//        // Uses Auth Middleware
-//    });
-//
-//    Route::get('user/profile', function () {
-//        // Uses Auth Middleware
-//    });
 });
 
+Route::group(['middleware' => 'student'], function () {
+
+
+});
+
+Route::group(['middleware' => 'profesor'], function () {
+
+
+});
