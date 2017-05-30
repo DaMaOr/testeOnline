@@ -23,6 +23,46 @@
                                     @endif
                                 </div>
                             </div>
+
+
+                            <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Status</label>
+
+                                <div class="col-md-6">
+
+                                    <select class="form-control" name="status" id="statusSelect">
+                                        @foreach($statuses as $status)
+                                            <option value="{{$status->id}}">{{$status->name}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('status'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('status') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('categories') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Category</label>
+
+                                <div class="col-md-6">
+
+                                    <select class="form-control" name="category" id="categorySelect">
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('categories'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('categories') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

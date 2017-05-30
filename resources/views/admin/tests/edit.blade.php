@@ -23,6 +23,44 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="status" class="col-md-4 control-label">Status: </label>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="status" name="status">
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status->id }}"
+                                                    @if($test->status_id == $status->id) selected @endif
+                                            >{{ $status->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status" class="col-md-4 control-label">Categorie: </label>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="status" name="category">
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                    @if($test->category_id == $category->id) selected @endif
+                                            >{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" id="addQuestion" class="btn btn-primary">
+                                        Adauga intrebare
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="questions">
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
@@ -37,3 +75,7 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="{{asset('js/test.js')}}"></script>
+@stop

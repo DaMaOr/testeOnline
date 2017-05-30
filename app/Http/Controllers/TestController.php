@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Status;
 use Illuminate\Http\Request;
 use App\Test;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
@@ -18,11 +21,13 @@ class TestController extends Controller
 
     public function create() {
 
-        $tests = Test::all();
+        $statuses = Status::all();
+        $categories = Category::all();
 
         return view('admin.tests.create')->with([
 
-            'tests' => $tests,
+            'statuses' => $statuses,
+            'categories' => $categories,
         ]);
     }
 
@@ -34,6 +39,9 @@ class TestController extends Controller
 
         $test = new Test();
         $test->name = $request->name;
+        $test->status_id = $request->status;
+        $test->category_id = $request->category;
+        $test->user_id = Auth::id();
         $test->save();
 
         return redirect()->route('testsIndex');
@@ -41,7 +49,16 @@ class TestController extends Controller
 
     public function edit(Test $test) {
 
-        return view('admin.tests.edit');
+        $statuses = Status::all();
+        $categories = Category::all();
+
+        return view('admin.tests.edit')->with([
+
+            'statuses' => $statuses,
+            'categories' => $categories,
+            'test' => $test,
+        ]);
+
     }
 
 
@@ -51,6 +68,8 @@ class TestController extends Controller
             'name' => 'required',
         ]);
         $test->name = $request->name;
+        $test->status_id = $request->status;
+        $test->category_id = $request->category;
         $test->save();
 
         return redirect()->route('testsIndex');
