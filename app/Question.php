@@ -11,6 +11,10 @@ class Question extends Model
     ];
 
     public function status(){
+        return $this->belongsTo(Answer::class);
+    }
+
+    public function answers(){
         return $this->hasMany(Answer::class);
     }
 }

@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Editeaza categorie</div>
-                    <div class="panel-body">
+                    <div class="panel-heading" style="background-color: beige"><b>Editare curs</b></div>
+                    <div class="panel-body" style="background-color: yellow">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('categoriesUpdate', $category->id) }}">
                             {{ csrf_field() }}
 
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="status" class="col-md-4 control-label">Status: </label>
+                                <label for="status" class="col-md-4 control-label">Status</label>
                                 <div class="col-md-6">
                                     <select class="form-control" id="status" name="statusCategory">
                                         @foreach($statuses as $status)
@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Salveaza
+                                        Salvare
                                     </button>
                                 </div>
                             </div>

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Teste Online') }}</title>
+    <title>TestU - Teste Online</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -22,9 +22,9 @@
         ]) !!};
     </script>
 </head>
-<body>
+<body style="background-color: #0d3625">
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color:beige">
             <div class="container">
                 <div class="navbar-header">
 
@@ -38,26 +38,26 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{--<img src="{{URL::asset('/img/a.png')}}" height="20px" width="20px">--}}
+                        Test<b>U</b>
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li><a href="{{ route('testsIndex') }}">Teste</a></li>
-                            <li><a href="{{ route('statusesIndex') }}">Statusuri</a></li>
-                            <li><a href="{{ route('categoriesIndex') }}">Categorii</a></li>
+                            <li><a href="{{ route('login') }}">Autentificare</a></li>
+                            <li><a href="{{ route('register') }}">Înregistrare</a></li>
+                        @elseif(Auth()->user()->roles === \App\User::PROFESOR)
+                            <li><a href="{{ route('testsIndexProf') }}"><b>Teste</b></a></li>
+                            <li><a href="{{ route('categoriesIndex') }}"><b>Cursuri</b></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -68,7 +68,29 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Deconectare
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @elseif(Auth()->user()->roles === \App\User::STUDENT)
+                            <li><a href="{{ route('testsIndex') }}"><b>Teste</b></a></li>
+                            <li><a href="{{ route('categoriesIndexStud') }}"><b>Cursuri</b></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Deconectare
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

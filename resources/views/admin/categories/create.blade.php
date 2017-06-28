@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Adauga categorie</div>
-                    <div class="panel-body">
+                    <div class="panel-heading" style="background-color: beige"><b>Adăugare curs</b></div>
+                    <div class="panel-body" style="background-color: yellow">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('categoriesStore') }}">
                             {{ csrf_field() }}
 
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Adauga
+                                        Adăugare
                                     </button>
                                 </div>
                             </div>

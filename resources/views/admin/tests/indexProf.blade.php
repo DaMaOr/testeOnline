@@ -6,9 +6,6 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="overflow:hidden;background-color: beige"><b>Teste</b>
-                        @if(Auth()->user()->roles !== \App\User::STUDENT )
-                            <a href="{{  route('testsAdd') }}" class="btn btn-primary pull-right">Adauga</a>
-                        @endif
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped">
@@ -18,8 +15,7 @@
                                 <th>Curs</th>
                                 <th>Profesor</th>
                                 <th>Status</th>
-                                <th>Nota</th>
-                                <th>Actiuni</th>
+                                <th>Acțiuni</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -29,12 +25,15 @@
                                     <td>{{ $test->category->name  }}</td>
                                     <td>{{ $test->user->name  }}</td>
                                     <td>{{ $test->status->name  }}</td>
-                                    <td>{{Auth::user()->tests()->where('id', $test->id)->first() ? Auth::user()->tests()->where('id', $test->id)->first()->pivot->grade : 'Nerezolvat'}}</td>
                                     <td>
                                         @if(Auth()->user()->roles !== \App\User::STUDENT )
+                                            <a href="{{  route('testsAdd') }}" class="btn btn-primary">Adăugare</a>
                                             <a href="{{ route('testsEdit', $test->id) }}" class="btn btn-success">Editare</a>
                                             <button class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#deleteTestModal-{{$test->id}}">Sterge
+                                                    data-target="#deleteTestModal-{{$test->id}}">Ștergere
+                                            </button>
+                                            <button class="btn btn-info" data-toggle="modal"
+                                                    data-target="#deleteTestModal-{{$test->id}}">Listă note
                                             </button>
                                             <!-- Modal -->
                                             <div id="deleteTestModal-{{$test->id}}" class="modal fade" role="dialog">
@@ -46,10 +45,10 @@
                                                             <button type="button" class="close" data-dismiss="modal">
                                                                 &times;
                                                             </button>
-                                                            <h4 class="modal-title">Ștergere test</h4>
+                                                            <h4 class="modal-title">Ștergere test - <b>{{$test -> name}}</b></h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Sigur doriți să ștergeti acest test?</p>
+                                                            <p>Sigur doriți să ștergeți acest test?</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <a type="button" class="btn btn-danger"
@@ -63,8 +62,8 @@
                                                 </div>
                                             </div>
                                         @elseif($test->status->id == 1 && !Auth::user()->tests->contains($test->id))
-                                            <a href="{{Route('testAccess', $test->id)}}" class="btn btn-danger">Începe test</a>
-                                        @elseif($test->status->id == 1 && Auth::user()->tests->contains($test->id))
+                                            <a href="{{Route('testAccess', $test->id)}}" class="btn btn-danger">Incepe Test</a>
+                                        @else
                                             <a href="{{Route('taken', $test->id)}}" class="btn btn-success">Vezi rezolvarea</a>
                                         @endif
                                     </td>

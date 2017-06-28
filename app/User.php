@@ -38,4 +38,8 @@ class User extends Authenticatable
     const ROLES = [self::ADMIN, self::STUDENT, self::PROFESOR];
 
     const REGISTERROLES = [self::STUDENT, self::PROFESOR];
+
+    public function tests(){
+        return $this->belongsToMany(Test::class)->withPivot('grade', 'answered');
+    }
 }

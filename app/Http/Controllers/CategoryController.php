@@ -17,6 +17,15 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function indexStud() {
+
+        $categories = Category::all();
+
+        return view('admin.categories.indexStud')->with([
+            'categories' => $categories,
+        ]);
+    }
+
     public function create() {
 
         $statuses = Status::all();

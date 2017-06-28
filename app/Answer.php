@@ -14,4 +14,9 @@ class Answer extends Model
         return $this->belongsTo(Question::class);
     }
 
+
+    public function scopeCorrect($query, $flag){
+        return $query->where('correct', $flag);
+    }
+
 }

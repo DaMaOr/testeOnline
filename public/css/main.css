@@ -6,3 +6,26 @@
 .question-name-wrapper > div:first-child {
     flex: 1;
 }
+
+
+.answer-wrap{
+    margin-top: 15px;
+    display: flex;
+}
+
+.answer-wrap input {
+    margin-right: 15px;
+}
+
+.question-answers{
+    margin: 0 30px 30px 30px;
+}
+
+label.correct {
+    font-weight: bold;
+    color: green;
+}
+
+label.incorrect {
+    color: red;
+}
