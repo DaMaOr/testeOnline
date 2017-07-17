@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default" style="background-color: yellow">
+            <div class="panel panel-default" style="background-color: beige">
                 <div class="panel-heading" style="background-color: beige"><b>Autentificare</b></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">

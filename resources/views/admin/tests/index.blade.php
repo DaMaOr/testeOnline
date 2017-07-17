@@ -66,6 +66,8 @@
                                             <a href="{{Route('testAccess', $test->id)}}" class="btn btn-danger">Începe test</a>
                                         @elseif($test->status->id == 1 && Auth::user()->tests->contains($test->id))
                                             <a href="{{Route('taken', $test->id)}}" class="btn btn-success">Vezi rezolvarea</a>
+                                        @elseif($test->status->id == 2 && Auth::user()->tests->contains($test->id))
+                                            <a href="{{Route('taken', $test->id)}}" class="btn btn-success">Vezi rezolvarea</a>
                                         @endif
                                     </td>
                                 </tr>

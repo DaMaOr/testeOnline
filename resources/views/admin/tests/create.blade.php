@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="background-color: beige"><b>Adăugare test</b></div>
-                    <div class="panel-body" style="background-color: yellow">
+                    <div class="panel-body" style="background-color: beige">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('testsStore') }}">
                             {{ csrf_field() }}
 
@@ -65,8 +65,10 @@
 
                                     <select class="form-control" name="category" id="categorySelect">
                                         @foreach($categories as $category)
+                                            @if($category->user_id == $user)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
+                                                @endif
+                                                @endforeach
                                     </select>
 
                                     @if ($errors->has('categories'))
@@ -75,6 +77,17 @@
                                     </span>
                                     @endif
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" id="addQuestion" class="btn btn-primary">
+                                        Adăugare întrebare
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="questions">
                             </div>
 
                             <div class="form-group">
@@ -91,3 +104,9 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        var questionCounter  = 0;
+    </script>
+    <script src="{{asset('js/test.js')}}"></script>
+@stop

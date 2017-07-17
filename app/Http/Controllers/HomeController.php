@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +25,22 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function usersList(){
+        $users = User::where('roles', '<>', User::ADMIN)->get();
+
+        return view('admin.users.list')->with([
+            'users' => $users
+        ]);
+    }
+
+    public function usersChangeStat(User $user, $status){
+        if($user->verified !== $status){
+            $user->verified = $status;
+            $user->save();
+        }
+
+        return back();
     }
 }

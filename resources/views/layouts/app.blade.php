@@ -77,6 +77,27 @@
                                     </li>
                                 </ul>
                             </li>
+                        @elseif(Auth()->user()->roles === \App\User::ADMIN)
+                            <li><a href="{{ route('usersList') }}"><b>Conturi</b></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Deconectare
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                         @elseif(Auth()->user()->roles === \App\User::STUDENT)
                             <li><a href="{{ route('testsIndex') }}"><b>Teste</b></a></li>
                             <li><a href="{{ route('categoriesIndexStud') }}"><b>Cursuri</b></a></li>

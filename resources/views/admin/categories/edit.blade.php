@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="background-color: beige"><b>Editare curs</b></div>
-                    <div class="panel-body" style="background-color: yellow">
+                    <div class="panel-body" style="background-color: beige">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('categoriesUpdate', $category->id) }}">
                             {{ csrf_field() }}
 

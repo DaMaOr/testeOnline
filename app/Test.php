@@ -25,4 +25,8 @@ class Test extends Model
     public function questions(){
         return $this->hasMany(Question::class);
     }
+
+    public function students(){
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -6,6 +6,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="overflow:hidden; background-color: beige"><b>Cursuri</b>
+                        <a href="{{  route('categoriesAdd') }}" class="btn btn-primary pull-right">Adăugare</a>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped">
@@ -22,7 +23,6 @@
                                     <td>{{ $category->name  }}</td>
                                     <td>{{ $category->status->name  }}</td>
                                     <td>
-                                        <a href="{{  route('categoriesAdd') }}" class="btn btn-primary">Adăugare</a>
                                         <a href="{{ route('categoriesEdit', $category->id) }}" class="btn btn-success">Editare</a>
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryModal-{{$category->id}}">Ștergere</button>
                                         <div id="deleteCategoryModal-{{$category->id}}" class="modal fade" role="dialog">

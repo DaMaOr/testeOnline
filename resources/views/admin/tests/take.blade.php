@@ -14,7 +14,7 @@
                             @foreach($test->questions as $ind => $question)
                                 <div class="question">
                                     <div class="question-body">
-                                        <p><b>{{$ind + 1}}.</b> {{$question->body}}<br> <b>({{$question->answers()->correct(true)->count()}} raspunsuri corecte)</b></p>
+                                        <p><b>{{$ind + 1}}.</b> {{$question->body}}<br> <b>(Răspunsuri corecte: {{$question->answers()->correct(true)->count()}})</b></p>
                                     </div>
                                     <div class="question-answers">
                                         @foreach($question->answers as $indAns => $answer)

@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="background-color: beige"><b>Editare test</b></div>
-                    <div class="panel-body" style="background-color: yellow">
+                    <div class="panel-body" style="background-color: beige">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('testsUpdate', $test->id) }}">
                             {{ csrf_field() }}
 
@@ -73,6 +73,34 @@
                             </div>
 
                             <div id="questions">
+                                @foreach($test->questions as $key => $question)
+                                    <div class="question">
+                                        <div class="form-group">
+                                            <label for="questionName" class="col-md-4 control-label">Întrebare</label>
+                                            <div class="question-name-wrapper col-md-8">
+                                                <div class="col-md-5">
+                                                    <input type="hidden" value="{{$question->id}}" name="questionName[{{$key}}][id]">
+                                                    <input id="questionName" value="{{$question->body}}" type="text" class="form-control" name="questionName[{{$key}}][body]" required autofocus>
+                                                    <div class="col-md-12">
+                                                        @foreach($question->answers as $ind => $answer)
+                                                            <div class="answer-wrap">
+                                                                <input type="hidden" value="{{$question->id}}" name="questionName[{{$key}}][answers][{{$ind}}][id]">
+                                                                <label for="questionAnswer" class="col-md-2 control-label">#{{$ind + 1}}</label><input value="{{$answer->body}}" id="questionAnswer" class="form-control" type="text" name="questionName[{{$key}}][answers][{{$ind}}][body]">
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox" value="true" name="questionName[{{$key}}][answers][{{$ind}}][correct]" @if($answer->correct) checked @endif>Corect</label>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button class="btn btn-danger delete-question" onclick="removeQuestion(event)">X</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
 
                             <div class="form-group">
@@ -91,5 +119,11 @@
 @endsection
 
 @section('scripts')
+    <script>
+        <?php
+            $questionIds = $test->questions()->select('id')->get()->pluck('id')->toArray();
+            ?>
+        var questionCounter  = {{(count($questionIds) >= 1 ? max($questionIds):0) + 1}};
+    </script>
     <script src="{{asset('js/test.js')}}"></script>
 @stop

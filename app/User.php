@@ -27,10 +27,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $casts = [
-      'roles' => 'array'
-    ];
-
     const ADMIN = 'Admin';
     const STUDENT = 'Student';
     const PROFESOR = 'Profesor';

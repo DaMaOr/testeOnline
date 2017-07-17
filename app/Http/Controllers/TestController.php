@@ -6,6 +6,7 @@ use App\Answer;
 use App\Category;
 use App\Question;
 use App\Status;
+use App\User;
 use Illuminate\Http\Request;
 use App\Test;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class TestController extends Controller
 
     public function indexProf() {
 
-        $tests = Test::all();
+        $tests = Test::where('user_id', Auth::id())->get();
 
         return view('admin.tests.indexProf')->with([
             'tests' => $tests,
@@ -34,11 +35,13 @@ class TestController extends Controller
 
         $statuses = Status::all();
         $categories = Category::all();
+        $user = Auth::id();
 
         return view('admin.tests.create')->with([
 
             'statuses' => $statuses,
             'categories' => $categories,
+            'user' => $user,
         ]);
     }
 
@@ -55,8 +58,28 @@ class TestController extends Controller
         $test->access_key = $request->access_key;
         $test->user_id = Auth::id();
         $test->save();
+        if($test->save()){
+            if(isset($request->questionName)){
+                foreach($request->questionName as $key => $question){
+                    $newQuestion = new Question();
+                    $newQuestion->body = $question['body'];
+                    $newQuestion->test_id = $test->id;
+                    if($newQuestion->save()){
+                        if(isset($question['answers']) && is_array($question['answers'])){
+                            foreach($question['answers'] as $ansKey => $answer){
+                                $newAnswer = new Answer();
+                                $newAnswer->body = $answer['body'];
+                                $newAnswer->question_id = $newQuestion->id;
+                                $newAnswer->correct = isset($answer['correct']) ? true: false;
+                                $newAnswer->save();
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-        return redirect()->route('testsIndex');
+        return redirect()->route('testsIndexProf');
     }
 
     public function edit(Test $test) {
@@ -75,7 +98,6 @@ class TestController extends Controller
 
 
     public function update(Test $test, Request $request) {
-
         $this->validate($request, [
             'name' => 'required',
         ]);
@@ -160,5 +182,14 @@ class TestController extends Controller
 
     public function takenTest(Test $test){
         return view('admin.tests.taken')->with('test', $test);
+    }
+
+    public function gradeList(Test $test){
+        $students = $test->students;
+
+        return view('admin.tests.grades')->with([
+            'students' => $students,
+            'test' => $test
+        ]);
     }
 }

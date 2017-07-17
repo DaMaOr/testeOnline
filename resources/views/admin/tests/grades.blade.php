@@ -5,27 +5,21 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="overflow:hidden;background-color: beige"><b>Cursuri</b>
+                    <div class="panel-heading" style="overflow:hidden;background-color: beige"><b>Rezultate Test {{$test->name}}</b>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th>Nume</th>
-                                <th>Profesor</th>
-                                <th>Status</th>
+                                <th>Nota</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
+                            @foreach($students as $student)
                                 <tr>
-                                    <td>{{ $category->name  }}</td>
-                                    @foreach($users as $user)
-                                        @if($category->user_id == $user->id)
-                                    <td>{{ $user->name}}</td>
-                                        @endif
-                                    @endforeach
-                                    <td>{{ $category->status->name  }}</td>
+                                    <td>{{ $student->name  }}</td>
+                                    <td>{{ $student->tests()->where('id', $test->id)->first()->pivot->grade }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -35,7 +29,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
 
 @endsection

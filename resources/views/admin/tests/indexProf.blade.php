@@ -6,6 +6,9 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="overflow:hidden;background-color: beige"><b>Teste</b>
+                        @if(Auth()->user()->roles !== \App\User::STUDENT )
+                            <a href="{{  route('testsAdd') }}" class="btn btn-primary pull-right">Adăugare</a>
+                        @endif
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped">
@@ -24,17 +27,27 @@
                                     <td>{{ $test->name  }}</td>
                                     <td>{{ $test->category->name  }}</td>
                                     <td>{{ $test->user->name  }}</td>
-                                    <td>{{ $test->status->name  }}</td>
+                                    @if( $test->category->status->id == 1 && $test->status->id == 1)
+                                        <?php DB::table('tests')->where('id', $test->id)->update(['status_id' => 1]) ?>
+                                        <td>{{ $test->status->name  }}</td>
+                                    @elseif($test->category->status->id == 2 && $test->status->id == 1)
+                                        <?php DB::table('tests')->where('id', $test->id)->update(['status_id' => 2]) ?>
+                                        <td>{{ $test->status->name  }}</td>
+                                    @elseif($test->category->status->id == 1 && $test->status->id == 2)
+                                        <?php DB::table('tests')->where('id', $test->id)->update(['status_id' => 2]) ?>
+                                        <td>{{ $test->status->name  }}</td>
+                                    @elseif($test->category->status->id == 2 && $test->status->id == 2)
+                                        <?php DB::table('tests')->where('id', $test->id)->update(['status_id' => 2]) ?>
+                                        <td>{{ $test->status->name  }}</td>
+                                    @endif
                                     <td>
                                         @if(Auth()->user()->roles !== \App\User::STUDENT )
-                                            <a href="{{  route('testsAdd') }}" class="btn btn-primary">Adăugare</a>
                                             <a href="{{ route('testsEdit', $test->id) }}" class="btn btn-success">Editare</a>
                                             <button class="btn btn-danger" data-toggle="modal"
                                                     data-target="#deleteTestModal-{{$test->id}}">Ștergere
                                             </button>
-                                            <button class="btn btn-info" data-toggle="modal"
-                                                    data-target="#deleteTestModal-{{$test->id}}">Listă note
-                                            </button>
+                                            <a href="{{Route('testGradeList', $test->id)}}" class="btn btn-info" >Listă note
+                                            </a>
                                             <!-- Modal -->
                                             <div id="deleteTestModal-{{$test->id}}" class="modal fade" role="dialog">
                                                 <div class="modal-dialog">

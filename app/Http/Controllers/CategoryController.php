@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Status;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index() {
 
-        $categories = Category::all();
+        $categories = Category::where('user_id', Auth::id())->get();
 
         return view('admin.categories.index')->with([
             'categories' => $categories,
@@ -20,9 +22,11 @@ class CategoryController extends Controller
     public function indexStud() {
 
         $categories = Category::all();
+        $users = User::all();
 
         return view('admin.categories.indexStud')->with([
             'categories' => $categories,
+            'users' => $users,
         ]);
     }
 
@@ -46,6 +50,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->status_id = $request->statusCategory;
+        $category->user_id = $request->user()->id;
         $category->save();
 
         return redirect()->route('categoriesIndex');
